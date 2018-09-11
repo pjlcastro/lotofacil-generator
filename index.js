@@ -30,7 +30,7 @@ app.get('/', function (req, res) {
             for (var dezen of combination) {
                 fullGame += dezen;
             }
-            console.log(fullGame.toString());
+            //console.log(fullGame.toString());
             batch.sadd('games', fullGame.toString());
             counter++;
             control++;
