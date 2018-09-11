@@ -39,6 +39,7 @@ app.get('/', function (req, res) {
                 console.log('Adicionando batch de 10000... control: ' + control); 
                 batch.exec();
                 counter = 0;
+                global.gc();
                 //break;
             }
         }
