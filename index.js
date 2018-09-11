@@ -6,7 +6,8 @@ var redis = require('redis');
 redis.debug_mode = true;
 
 app.get('/', function (req, res) {
-    //var client = redis.createClient(6379, 'lotofacil');
+    var client = redis.createClient(6379, 'lotofacil');
+    
     //var client = redis.createClient(80, 'lotofacil-pleitede.b542.starter-us-east-2a.openshiftapps.com')
     client.auth('BDRSVE350Dipojtj');
     
