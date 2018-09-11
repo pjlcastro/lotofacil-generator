@@ -3,17 +3,49 @@ var app = express();
 var generatorics = require('generatorics');
 
 var redis = require('redis');
-
+redis.debug_mode = true;
 
 app.get('/', function (req, res) {
     var client = redis.createClient(6379, 'lotofacil');
+    //var client = redis.createClient(80, 'lotofacil-pleitede.b542.starter-us-east-2a.openshiftapps.com')
     client.auth('BDRSVE350Dipojtj');
     
     client.on('connect', function() {
         console.log('Redis client connected');
-        var combinations = generatorics.combination(['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25' ], 15);
+        var combinations = generatorics.clone.combination(['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25' ], 15);
         console.log('Inserting games into database...');
+        
+        var arrayOfCombinations = Array.from(combinations);
+        
+        var counter = 0;
+        var control = 0;
+        
+        var batch = client.batch();
+        for (var idx = 0; idx < arrayOfCombinations.length; idx++) {
+            var fullGame = '';
+    
+            for (var dezen of arrayOfCombinations[idx]) {
+                fullGame += dezen;
+            }
+            console.log(arrayOfCombinations[0]);
+            batch.sadd('games', fullGame.toString());
+            counter++;
+            control++;
+            
+            if (counter == 1) {
+                console.log('Adicionando batch de 10000... control: ' + control); 
+                batch.exec(function (err, replies) {
+                    console.log(replies); // 101, 2
+                });
+                counter = 0;
+                break;
+            }
+        }
+        //client.exec();
+        
+        /*
         for (var combination of combinations) {
+        
             var fullGame = '';
     
             for (var dezen of combination) {
@@ -22,6 +54,7 @@ app.get('/', function (req, res) {
             
             client.sadd('games', fullGame.toString());
         }
+        */
         client.quit();
         res.send('Database created!');
     });
