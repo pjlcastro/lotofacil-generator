@@ -1,0 +1,24 @@
+{
+  "name": "pjlcastro-lotofacil-generator",
+  "version": "1.0.0",
+  "description": "Generator for lotofacil games",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pjlcastro/lotofacil-generator.git"
+  },
+  "author": "Paulo Jose Leite de Castro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pjlcastro/lotofacil-generator/issues"
+  },
+  "homepage": "https://github.com/pjlcastro/lotofacil-generator#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "generatorics": "^1.1.0",
+    "redis": "^2.8.0"
+  }
+}
