@@ -6,6 +6,7 @@ var redis = require('redis');
 //redis.debug_mode = true;
 
 app.get('/', function (req, res) {
+    req.setTimeout(500000);
     var client = redis.createClient(6379, 'lotofacil');
     
     //var client = redis.createClient(80, 'lotofacil-pleitede.b542.starter-us-east-2a.openshiftapps.com');
@@ -35,7 +36,7 @@ app.get('/', function (req, res) {
             counter++;
             control++;
             
-            if (counter == 5000) {
+            if (counter == 10000) {
                 console.log('Adicionando batch de 10000... control: ' + control); 
                 batch.exec();
                 counter = 0;
