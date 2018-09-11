@@ -6,13 +6,13 @@ var redis = require('redis');
 redis.debug_mode = true;
 
 app.get('/', function (req, res) {
-    var client = redis.createClient(6379, 'lotofacil');
+    //var client = redis.createClient(6379, 'lotofacil');
     //var client = redis.createClient(80, 'lotofacil-pleitede.b542.starter-us-east-2a.openshiftapps.com')
     client.auth('BDRSVE350Dipojtj');
     
     client.on('connect', function() {
         console.log('Redis client connected');
-        var combinations = generatorics.clone.combination(['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25' ], 15);
+        var combinations = generatorics.combination(['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25' ], 15);
         console.log('Inserting games into database...');
         
         var arrayOfCombinations = Array.from(combinations);
@@ -21,13 +21,14 @@ app.get('/', function (req, res) {
         var control = 0;
         
         var batch = client.batch();
-        for (var idx = 0; idx < arrayOfCombinations.length; idx++) {
+        //for (var idx = 0; idx < arrayOfCombinations.length; idx++) {
+        for (var combination of combinations) {
             var fullGame = '';
     
-            for (var dezen of arrayOfCombinations[idx]) {
+            for (var dezen of combination) {
                 fullGame += dezen;
             }
-            console.log(arrayOfCombinations[0]);
+            console.log(combination);
             batch.sadd('games', fullGame.toString());
             counter++;
             control++;
@@ -41,7 +42,7 @@ app.get('/', function (req, res) {
                 break;
             }
         }
-        //client.exec();
+        client.exec();
         
         /*
         for (var combination of combinations) {
