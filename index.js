@@ -43,7 +43,7 @@ app.get('/', function (req, res) {
                 break;
             }
         }
-        client.exec();
+        batch.exec();
         
         /*
         for (var combination of combinations) {
