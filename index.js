@@ -35,7 +35,7 @@ app.get('/', function (req, res) {
             counter++;
             control++;
             
-            if (counter == 100000) {
+            if (counter == 5000) {
                 console.log('Adicionando batch de 10000... control: ' + control); 
                 batch.exec();
                 counter = 0;
