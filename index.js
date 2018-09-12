@@ -5,6 +5,8 @@ var generatorics = require('generatorics');
 var redis = require('redis');
 //redis.debug_mode = true;
 
+var totalNumberOfGames = 3268760;
+
 app.get('/', function (req, res) {
     req.setTimeout(500000);
     var client = redis.createClient(6379, 'lotofacil');
@@ -37,7 +39,7 @@ app.get('/', function (req, res) {
             counter++;
             control++;
             
-            if (counter == 1000) {
+            if (counter == 100000) {
                 console.log('Adicionando batch de 10000... control: ' + control); 
                 batch.exec();
                 counter = 0;
