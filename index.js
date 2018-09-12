@@ -26,13 +26,14 @@ app.get('/', function (req, res) {
         var batch = client.batch();
         //for (var idx = 0; idx < arrayOfCombinations.length; idx++) {
         for (var combination of combinations) {
-            var fullGame = '';
+            //var fullGame = '';
     
-            for (var dezen of combination) {
-                fullGame += dezen;
-            }
+            //for (var dezen of combination) {
+            //    fullGame += dezen;
+            //}
             //console.log(fullGame.toString());
-            batch.sadd('games', fullGame.toString());
+            //batch.sadd('games', fullGame.toString());
+            batch.sadd('games', combination.join(''));
             counter++;
             control++;
             
@@ -40,7 +41,7 @@ app.get('/', function (req, res) {
                 console.log('Adicionando batch de 10000... control: ' + control); 
                 batch.exec();
                 counter = 0;
-                global.gc();
+                //global.gc();
                 //break;
             }
         }
