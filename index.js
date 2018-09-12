@@ -35,13 +35,13 @@ app.get('/', function (req, res) {
             //}
             //console.log(fullGame.toString());
             //batch.sadd('games', fullGame.toString());
-            batch.sadd('games', combination.join(''));
+//            batch.sadd('games', combination.join(''));
             counter++;
             control++;
             
             if (counter == 100000) {
                 console.log('Adicionando batch de 10000... control: ' + control); 
-                batch.exec();
+//                batch.exec();
                 counter = 0;
                 console.log(process.memoryUsage());
                 //global.gc();
@@ -49,7 +49,7 @@ app.get('/', function (req, res) {
             }
             combination = null;
         }
-        batch.exec();
+//        batch.exec();
         
         /*
         for (var combination of combinations) {
